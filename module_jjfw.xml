@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jjfw" default="compile.module.jjfw">
+  <dirname property="module.jjfw.basedir" file="${ant.file.module_jjfw}"/>
+  
+  <property name="module.jdk.home.jjfw" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.jjfw" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.jjfw" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.jjfw" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="jjfw.output.dir" value="${module.jjfw.basedir}/../jjfw_out/build/classes"/>
+  <property name="jjfw.testoutput.dir" value="${module.jjfw.basedir}/../jjfw_out/build/classes"/>
+  
+  <path id="jjfw.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jjfw.module.production.classpath">
+    <path refid="${module.jdk.classpath.jjfw}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/jsp-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/websocket-api.jar"/>
+  </path>
+  
+  <path id="jjfw.runtime.production.module.classpath">
+    <pathelement location="${jjfw.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/jsp-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/websocket-api.jar"/>
+  </path>
+  
+  <path id="jjfw.module.classpath">
+    <pathelement location="${jjfw.output.dir}"/>
+    <path refid="${module.jdk.classpath.jjfw}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/jsp-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/websocket-api.jar"/>
+  </path>
+  
+  <path id="jjfw.runtime.module.classpath">
+    <pathelement location="${jjfw.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/jsp-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/servlet-api.jar"/>
+    <pathelement location="${basedir}/../../../apache-tomcat-9.0.1/apache-tomcat-9.0.1/lib/websocket-api.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jjfw">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jjfw">
+    <patternset refid="excluded.from.module.jjfw"/>
+  </patternset>
+  
+  <path id="jjfw.module.sourcepath">
+    <dirset dir="${module.jjfw.basedir}">
+      <include name="src"/>
+      <include name="resources"/>
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jjfw" depends="compile.module.jjfw.production,compile.module.jjfw.tests" description="Compile module jjfw"/>
+  
+  <target name="compile.module.jjfw.production" depends="register.custom.compilers" description="Compile module jjfw; production classes">
+    <mkdir dir="${jjfw.output.dir}"/>
+    <javac2 destdir="${jjfw.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jjfw}/javac">
+      <compilerarg line="${compiler.args.jjfw}"/>
+      <bootclasspath refid="jjfw.module.bootclasspath"/>
+      <classpath refid="jjfw.module.production.classpath"/>
+      <src refid="jjfw.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jjfw"/>
+    </javac2>
+    
+    <copy todir="${jjfw.output.dir}">
+      <fileset dir="${module.jjfw.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.jjfw.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.jjfw.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jjfw.tests" depends="register.custom.compilers,compile.module.jjfw.production" description="compile module jjfw; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jjfw" description="cleanup module">
+    <delete dir="${jjfw.output.dir}"/>
+    <delete dir="${jjfw.testoutput.dir}"/>
+  </target>
+</project>

@@ -22,11 +22,6 @@ public class TSBalanceModificationController {
     @Autowired
     private SystemService systemService;
 
-
-//    @Autowired
-//    public void setSystemService(SystemService systemService) {
-//        this.systemService = systemService;
-//    }
     //余额修改
     @RequestMapping(params = "increase" )
     @ResponseBody

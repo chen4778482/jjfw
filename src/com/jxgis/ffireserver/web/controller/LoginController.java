@@ -32,47 +32,78 @@ public class LoginController {
 
     @RequestMapping(params = "login")
     @ResponseBody
-    public ReturnBody login(String account, HttpServletRequest req) throws Exception {
-
+    public ReturnBody login(TSUser user, HttpServletRequest req) throws Exception {
         ReturnBody out = new ReturnBody();
+        TSUser user_db = systemService.findUniqueByProperty(TSUser.class, "account", user.getAccount());
+        if (!StringUtil.isNotEmpty(user_db)) {
+            out.setStatus(Glossary.Return_State_User_Not_Exist);
+            out.setMsg("用户不存在");
+            return out;
+        }
+        if (!StringUtil.isNotEmpty(user_db.getState()) || user_db.getState() == 1) {
+            out.setStatus(Glossary.Return_State_User_Not_Power);
+            out.setMsg("Insufficient user permissions.");
+            return out;
+        }
+        //下面开始校验密码
+        String password = "";
+        try {
+            password = PasswordUtil.decrypt(user_db.getPassword(), user.getPassword(), PasswordUtil.getSalt());
+        } catch (Exception e) {
+            out.setStatus(Glossary.Return_State_User_Password_Error);
+            out.setMsg("密码错误");
+            return out;
+        }
+        if (!user_db.getAccount().equals(password)) {
+            out.setStatus(Glossary.Return_State_User_Password_Error);
+            out.setMsg("密码错误");
+            return out;
 
-//		TSUser user_db = systemService.findUniqueByProperty(TSUser.class, "account", user.getAccount());
-//
-//		if( !StringUtil.isNotEmpty(user_db) ){
-//			out.setStatus( Glossary.Return_State_User_Not_Exist );
-//			out.setMsg( "用户不存在" );
-//			return out;
-//		}
-//		if ( !StringUtil.isNotEmpty(user_db.getState()) || user_db.getState() == 1 ){
-//			out.setStatus( Glossary.Return_State_User_Not_Power );
-//			out.setMsg( "Insufficient user permissions." );
-//			return out;
-//		}
-//		//下面开始校验密码
-//		String password = "";
-//		try{
-//			password = PasswordUtil.decrypt(user_db.getPassword(), user.getPassword(), PasswordUtil.getSalt());
-//		} catch (Exception e){
-//			out.setStatus( Glossary.Return_State_User_Password_Error );
-//			out.setMsg( "密码错误" );
-//			return out;
-//		}
-//
-//		if ( !user_db.getAccount().equals( password )){
-//
-//			out.setStatus( Glossary.Return_State_User_Password_Error );
-//			out.setMsg( "密码错误" );
-//			return out;
-//
-//		}
-//
-//		//密码正确
-//
-//
-//
-//		//返回用户数据
-//		out.setObj(user_db.loginReturn());
+        }
+        //密码正确
+        //返回用户数据
+        out.setObj(user_db.loginReturn());
+
         return out;
+    }
+
+    /**
+     * 注册帐号
+     * @return
+     */
+    @RequestMapping(params = "register")
+    @ResponseBody
+    public ReturnBody register(TSUser user, HttpServletRequest req) throws Exception {
+        ReturnBody out = new ReturnBody();
+        TSUser user_db = systemService.findUniqueByProperty(TSUser.class, "account", user.getAccount());
+        if (StringUtil.isNotEmpty(user_db)) {
+            out.setStatus(Glossary.Return_State_User_Not_Exist);
+            out.setMsg("用户已存在");
+            return out;
+        }
+        if (!StringUtil.isNotEmpty(user_db.getState()) || user_db.getState() == 1) {
+            out.setStatus(Glossary.Return_State_User_Not_Power);
+            out.setMsg("Insufficient user permissions.");
+            return out;
+        }
+        if (user.getAccountType() == null) {
+            out.setStatus(Glossary.Return_State_User_Not_Power);
+            out.setMsg("Setting the user's permissions");
+            return out;
+        }
+        systemService.updateEntitie(user);
+
+        TSUser user_db1 = systemService.findUniqueByProperty(TSUser.class, "account", user.getAccount());
+        if (!StringUtil.isNotEmpty(user_db1)) {
+            out.setStatus(Glossary.Return_State_User_Not_Exist);
+            out.setMsg("用户不存在");
+            return out;
+        }
+        //返回用户数据
+        out.setObj(user_db.loginReturn());
+
+        return out;
+
     }
 
     @RequestMapping(params = "reLogin")

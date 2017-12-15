@@ -120,9 +120,6 @@ public interface SystemService {
 	/**
 	 * 使用指定的检索标准检索数据并分页返回数据-采用预处理方式
 	 *
-	 * @param criteria
-	 * @param firstResult
-	 * @param maxResults
 	 * @return
 	 * @throws DataAccessException
 	 */

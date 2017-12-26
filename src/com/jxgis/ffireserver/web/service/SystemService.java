@@ -73,8 +73,7 @@ public interface SystemService {
 	 * @param value
 	 * @return
 	 */
-	<T> T findUniqueByProperty(Class<T> entityClass,
-	                                  String propertyName, Object value);
+	<T> T findUniqueByProperty(Class<T> entityClass, String propertyName, Object value);
 
 	/**
 	 * 根据实体名称和主键获取实体

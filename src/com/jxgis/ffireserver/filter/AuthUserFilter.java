@@ -12,10 +12,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.xwork.StringUtils;
-
 import com.jxgis.ffireserver.bean.Result;
 import com.jxgis.ffireserver.service.bean.ServerToken;
+import org.apache.commons.lang.xwork.StringUtils;
+
+
 import com.jxgis.ffireserver.util.AESCoderUtil;
 import com.jxgis.ffireserver.util.Constants;
 import com.jxgis.ffireserver.util.XmlUtil;

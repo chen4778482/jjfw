@@ -19,8 +19,7 @@ public class TSUser extends TSBaseUser implements java.io.Serializable
 	private String lastIp;	    //最后一次
 	private Integer accountType;        //账号类型：超级管理员_-1,系统用户_1
 
-	private List<TSRole> roles = new ArrayList<>();
-	private List<Map<String,Object>> departs = new ArrayList<>();
+
 
 
 	public Integer getCompetence() {
@@ -73,25 +72,6 @@ public class TSUser extends TSBaseUser implements java.io.Serializable
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	@Transient
-	public List<TSRole> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<TSRole> roles) {
-		this.roles = roles;
-	}
-
-
-	@Transient
-	public List<Map<String, Object>> getDeparts() {
-		return departs;
-	}
-
-	public void setDeparts(List<Map<String, Object>> departs) {
-		this.departs = departs;
 	}
 
 

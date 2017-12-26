@@ -23,7 +23,7 @@ public class TSFunction extends IdEntity implements java.io.Serializable {
 	private int functionLevel;//菜单等级
 	private String functionUrl;//菜单地址
 	private String functionOrder;//菜单排序
-	private TSIcon icon;//菜单图标
+
 
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -79,16 +79,6 @@ public class TSFunction extends IdEntity implements java.io.Serializable {
 
 	public void setFunctionOrder(String functionOrder) {
 		this.functionOrder = functionOrder;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "icon_id")
-	public TSIcon getIcon() {
-		return icon;
-	}
-
-	public void setIcon(TSIcon icon) {
-		this.icon = icon;
 	}
 
 	public boolean hasSubFunction(Map<Integer, List<TSFunction>> map) {

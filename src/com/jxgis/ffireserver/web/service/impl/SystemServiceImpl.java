@@ -2,7 +2,7 @@ package com.jxgis.ffireserver.web.service.impl;
 
 import com.jxgis.ffireserver.core.dao.CommonDao;
 import com.jxgis.ffireserver.core.util.*;
-import com.jxgis.ffireserver.web.bean.TSLog;
+
 import com.jxgis.ffireserver.web.service.SystemService;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
@@ -155,17 +155,17 @@ public class SystemServiceImpl implements SystemService {
 	 * 添加日志
 	 */
 	public void addLog(String logcontent, Short loglevel, Short operatetype) {
-		HttpServletRequest request = ContextHolderUtils.getRequest();
-		String broswer = BrowserUtils.checkBrowse(request);
-		TSLog log = new TSLog();
-		log.setLogcontent(logcontent);
-		log.setLoglevel(loglevel);
-		log.setOperatetype(operatetype);
-		log.setNote(oConvertUtils.getIp());
-		log.setBroswer(broswer);
-		log.setOperatetime(DateUtils.gettimestamp());
-		log.setTSUser(ResourceUtil.getSessionUserName());
-		commonDao.save(log);
+//		HttpServletRequest request = ContextHolderUtils.getRequest();
+//		String broswer = BrowserUtils.checkBrowse(request);
+//		TSLog log = new TSLog();
+//		log.setLogcontent(logcontent);
+//		log.setLoglevel(loglevel);
+//		log.setOperatetype(operatetype);
+//		log.setNote(oConvertUtils.getIp());
+//		log.setBroswer(broswer);
+//		log.setOperatetime(DateUtils.gettimestamp());
+//		log.setTSUser(ResourceUtil.getSessionUserName());
+//		commonDao.save(log);
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.jxgis.ffireserver.core.util;
 
-import com.jxgis.ffireserver.web.bean.TSMediaFile;
 import com.jxgis.ffireserver.web.bean.TSUser;
 
 import java.beans.BeanInfo;

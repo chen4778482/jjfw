@@ -8,6 +8,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.jxgis.ffireserver.service.bean.ServerToken;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.configuration.ConfigurationException;
@@ -15,7 +16,6 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jxgis.ffireserver.service.bean.ServerToken;
 
 /**
  * AES Coder<br/>
@@ -72,7 +72,7 @@ public class AESCoderUtil {
 	/**
 	 * 转换密钥
 	 * 
-	 * @param [key] 二进制密钥
+	 * @param key  二进制密钥
 	 * @return 密钥
 	 */
 	private static Key toKey(byte[] key) {
@@ -83,129 +83,129 @@ public class AESCoderUtil {
 	/**
 	 * 加密
 	 * 
-	 * @param [data] 待加密数据
-	 * @param [key] 密钥
+	 * @param data  待加密数据
+	 * @param key  密钥
 	 * @return [byte[]] 加密数据
 	 * @throws Exception
 	 */
-	public static byte[] encrypt(byte[] data, Key key) throws Exception {
-		return encrypt(data, key, DEFAULT_CIPHER_ALGORITHM);
+	public static byte[] encrypt(byte[] data , Key key) throws Exception {
+		return encrypt(data , key, DEFAULT_CIPHER_ALGORITHM);
 	}
 
 	/**
 	 * 加密
 	 * 
-	 * @param data
+	 * @param data 
 	 *            待加密数据
 	 * @param key
 	 *            二进制密钥
 	 * @return byte[] 加密数据
 	 * @throws Exception
 	 */
-	public static byte[] encrypt(byte[] data, byte[] key) throws Exception {
-		return encrypt(data, key, DEFAULT_CIPHER_ALGORITHM);
+	public static byte[] encrypt(byte[] data , byte[] key) throws Exception {
+		return encrypt(data , key, DEFAULT_CIPHER_ALGORITHM);
 	}
 
 	/**
 	 * 加密
 	 * 
-	 * @param [data] 待加密数据
-	 * @param [key] 二进制密钥
-	 * @param [cipherAlgorithm] 加密算法/工作模式/填充方式
+	 * @param data 待加密数据
+	 * @param key  二进制密钥
+	 * @param cipherAlgorithm  加密算法/工作模式/填充方式
 	 * @return [byte[]] 加密数据
 	 * @throws Exception
 	 */
-	public static byte[] encrypt(byte[] data, byte[] key, String cipherAlgorithm)
+	public static byte[] encrypt(byte[] data , byte[] key, String cipherAlgorithm)
 			throws Exception {
 		// 还原密钥
 		Key k = toKey(key);
-		return encrypt(data, k, cipherAlgorithm);
+		return encrypt(data , k, cipherAlgorithm);
 	}
 
 	/**
 	 * 加密
 	 * 
-	 * @param [data] 待加密数据
-	 * @param [key] 密钥
-	 * @param [cipherAlgorithm] 加密算法/工作模式/填充方式
+	 * @param data 待加密数据
+	 * @param key  密钥
+	 * @param cipherAlgorithm  加密算法/工作模式/填充方式
 	 * @return [byte[]] 加密数据
 	 * @throws Exception
 	 */
-	public static byte[] encrypt(byte[] data, Key key, String cipherAlgorithm)
+	public static byte[] encrypt(byte[] data , Key key, String cipherAlgorithm)
 			throws Exception {
 		// 实例化
 		Cipher cipher = Cipher.getInstance(cipherAlgorithm);
 		// 使用密钥初始化，设置为加密模式
 		cipher.init(Cipher.ENCRYPT_MODE, key);
 		// 执行操作
-		return cipher.doFinal(data);
+		return cipher.doFinal(data );
 	}
 
 	/**
 	 * 解密
 	 * 
-	 * @param [data] 待解密数据
-	 * @param [key] 二进制密钥
+	 * @param data 待解密数据
+	 * @param key  二进制密钥
 	 * @return [byte[]] 解密数据
 	 * @throws Exception
 	 */
-	public static byte[] decrypt(byte[] data, byte[] key) throws Exception {
-		return decrypt(data, key, DEFAULT_CIPHER_ALGORITHM);
+	public static byte[] decrypt(byte[] data , byte[] key) throws Exception {
+		return decrypt(data , key, DEFAULT_CIPHER_ALGORITHM);
 	}
 
 	/**
 	 * 解密
 	 * 
-	 * @param [data] 待解密数据
-	 * @param [key] 密钥
+	 * @param data 待解密数据
+	 * @param key  密钥
 	 * @return [byte[]] 解密数据
 	 * @throws Exception
 	 */
-	public static byte[] decrypt(byte[] data, Key key) throws Exception {
-		return decrypt(data, key, DEFAULT_CIPHER_ALGORITHM);
+	public static byte[] decrypt(byte[] data , Key key) throws Exception {
+		return decrypt(data , key, DEFAULT_CIPHER_ALGORITHM);
 	}
 
 	/**
 	 * 解密
 	 * 
-	 * @param [data] 待解密数据
-	 * @param [key] 二进制密钥
-	 * @param [cipherAlgorithm] 加密算法/工作模式/填充方式
+	 * @param data 待解密数据
+	 * @param key  二进制密钥
+	 * @param cipherAlgorithm  加密算法/工作模式/填充方式
 	 * @return [byte[]] 解密数据
 	 * @throws Exception
 	 */
-	public static byte[] decrypt(byte[] data, byte[] key, String cipherAlgorithm)
+	public static byte[] decrypt(byte[] data , byte[] key, String cipherAlgorithm)
 			throws Exception {
 		// 还原密钥
 		Key k = toKey(key);
-		return decrypt(data, k, cipherAlgorithm);
+		return decrypt(data , k, cipherAlgorithm);
 	}
 
 	/**
 	 * 解密
 	 * 
-	 * @param [data] 待解密数据
-	 * @param [key] 密钥
-	 * @param [cipherAlgorithm] 加密算法/工作模式/填充方式
+	 * @param data 待解密数据
+	 * @param key  密钥
+	 * @param cipherAlgorithm  加密算法/工作模式/填充方式
 	 * @return [byte[]] 解密数据
 	 * @throws Exception
 	 */
-	public static byte[] decrypt(byte[] data, Key key, String cipherAlgorithm)
+	public static byte[] decrypt(byte[] data , Key key, String cipherAlgorithm)
 			throws Exception {
 		// 实例化
 		Cipher cipher = Cipher.getInstance(cipherAlgorithm);
 		// 使用密钥初始化，设置为解密模式
 		cipher.init(Cipher.DECRYPT_MODE, key);
 		// 执行操作
-		return cipher.doFinal(data);
+		return cipher.doFinal(data );
 	}
 
-	private static String showByteArray(byte[] data) {
-		if (null == data) {
+	private static String showByteArray(byte[] data ) {
+		if (null == data ) {
 			return null;
 		}
 		StringBuilder sb = new StringBuilder("{");
-		for (byte b : data) {
+		for (byte b : data ) {
 			sb.append(b).append(",");
 		}
 		sb.deleteCharAt(sb.length() - 1);
@@ -216,16 +216,16 @@ public class AESCoderUtil {
 	/**
 	 * 返回加密后字符串
 	 * 
-	 * @param [data] 加密字符串
+	 * @param data 加密字符串
 	 * @return
 	 * @throws [Exception]
 	 */
-	public static String encodeStr(String data) {
+	public static String encodeStr(String data ) {
 		String response = "";
 		try {
 			byte[] bytekey = Hex.decodeHex(initKEY().toCharArray());
 			Key k = toKey(bytekey);
-			byte[] b = encrypt(data.getBytes(), k);
+			byte[] b = encrypt(data .getBytes(), k);
 			response = Hex.encodeHexString(b);
 		} catch (DecoderException e) {
 			e.printStackTrace();
@@ -238,18 +238,18 @@ public class AESCoderUtil {
 	/**
 	 * 返回解密后字符串
 	 * 
-	 * @param [data] 揭秘数据
+	 * @param data  揭秘数据
 	 * @return
 	 * @throws Exception
 	 */
-	public static String decodeStr(String data) {
+	public static String decodeStr(String data ) {
 		String response = "";
 		try {
 			byte[] bytekey = Hex.decodeHex(initKEY().toCharArray());
 			Key k = toKey(bytekey);
-			byte[] b = Hex.decodeHex(data.toCharArray());
-			byte[] decryptData = decrypt(b, k);
-			response = new String(decryptData);
+			byte[] b = Hex.decodeHex(data .toCharArray());
+			byte[] decryptdata  = decrypt(b, k);
+			response = new String(decryptdata );
 		} catch (DecoderException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -261,7 +261,7 @@ public class AESCoderUtil {
 	/**
 	 * 解密航信密码
 	 * 
-	 * @param [data]
+	 * @param 
 	 * @return
 	 * @throws Exception
 	 */
@@ -270,8 +270,8 @@ public class AESCoderUtil {
 		byte[] bytekey = Hex.decodeHex(initKEY().toCharArray());
 		Key k = toKey(bytekey);
 		byte[] b = Hex.decodeHex(pwd.toCharArray());
-		byte[] decryptData = decrypt(b, k);
-		response = new String(decryptData);
+		byte[] decryptdata  = decrypt(b, k);
+		response = new String(decryptdata );
 		return response;
 	}
 
@@ -301,8 +301,8 @@ public class AESCoderUtil {
 		byte[] bytekey = Hex.decodeHex(initKEY().toCharArray());
 		Key k = toKey(bytekey);
 		byte[] b = Hex.decodeHex(token.toCharArray());
-		byte[] decryptData = decrypt(b, k);
-		String tokenStr = new String(decryptData);
+		byte[] decryptdata  = decrypt(b, k);
+		String tokenStr = new String(decryptdata );
 
 		serverToken = (ServerToken) XmlUtil.fromXml(tokenStr, ServerToken.class);
 		return serverToken;

@@ -2,7 +2,6 @@ package com.jxgis.ffireserver.core.tag;
 
 
 import com.jxgis.ffireserver.core.constant.DataBaseConstant;
-import com.jxgis.ffireserver.web.bean.TSControl;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -38,14 +37,14 @@ public class ControlPermissions extends BodyTagSupport {
 
 			out = this.pageContext.getOut();
 
-			List<TSControl> permissions = (List<TSControl>) pageContext.getSession().getAttribute(DataBaseConstant.Role_Permissions);
+//			List<TSControl> permissions = (List<TSControl>) pageContext.getSession().getAttribute(DataBaseConstant.Role_Permissions);
 
 			boolean flog = true;
-			for (TSControl permission : permissions){
-				if (code.equals(permission.getControlCode())){
-					flog = false;
-				}
-			}
+//			for (TSControl permission : permissions){
+//				if (code.equals(permission.getControlCode())){
+//					flog = false;
+//				}
+//			}
 
 			if (flog){
 				out.print(bodyContent.getString());

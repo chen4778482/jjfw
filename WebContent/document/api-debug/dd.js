@@ -1,3 +1,0 @@
-function dd() {
-	var d = ''
-}

@@ -85,6 +85,7 @@
                         <value>userController.do?action</value>
                         <value>userController.do?userList</value>
                         <value>loginController.do?login</value>
+                        <value>loginController.do?register</value>
                         <value>loginController.do?reLogin</value>
                         <value>imeiController.do?service</value>
                         <value>serviceController.do?action</value>
